@@ -34,7 +34,7 @@ To get a local copy up and running follow these simple example steps.
 bundle install
 ```
 
-## Authors
+## Author
 
 👤 **Jahongir Yusupov**
 
@@ -58,4 +58,4 @@ Give a ⭐️ if you like this project!
 
 ## 📝 License
 
-This project is [LICENSE]() licensed.
+This project is [LICENSE](https://github.com/jahongiry/Blog_app-RAILS/blob/process-data/LICENSE) licensed.
