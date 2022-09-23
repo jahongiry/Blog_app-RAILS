@@ -1,10 +1,7 @@
-class CreateComment < ActiveRecord::Migration[7.0]
-  def change
-    create_table :comments do |t|
-      t.text :text
-      t.timestamps
-    end
-    add_reference :comments, :users, null: false, foreign_key: true
-    add_reference :comments, :posts, null: false, foreign_key: true
+class Comment < ApplicationRecord
+  belongs_to :user, class_name: 'User', foreign_key: :user_id
+  belongs_to :post, class_name: 'Post', foreign_key: :post_id
+  def comments_counter
+    post.increment!(:comments_counter)
   end
 end
