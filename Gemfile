@@ -28,7 +28,7 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 gem 'rspec-rails', '~> 4.0.0.beta2'
-
+gem 'rails-controller-testing'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
