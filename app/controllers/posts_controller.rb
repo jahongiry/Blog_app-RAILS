@@ -1,17 +1,9 @@
 class PostsController < ApplicationController
-  before_action :post_author
+  def index
+    @posts = Post.joins(:author).where(author: { id: params[:user_id] })
+  end
 
   def show
-    @post = @author.posts.find(params[:id])
-  end
-
-  def index
-    @posts = @author.posts
-  end
-
-  private
-
-  def post_author
-    @author = User.find(params[:user_id])
+    # @post = Post.joins(:author).where(author: { id: params[:user_id] }).find(params[:id])
   end
 end
