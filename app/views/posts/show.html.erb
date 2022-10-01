@@ -1,13 +1,21 @@
 <div class="post-show-c">
     <div class="user-recent-post">
         <div class="post-inf-box"
-            <h2 class="user-post-title">Post : <%= @post.title %> by <%= @post.author.name %></h2>
+            <h2 class="user-post-title">Post : <%= @post.title %> by <%= @user.name %></h2>
             <h3>Comments: <%= @post.comments_conter%>, Likes: <%= @post.likes_counter %><h3>
         </div>
         <p class="user-post-text"><%= @post.text %></p>
 
+        <%= form_with url: "/users/#{@post.author_id}/posts/#{@post.id}/likes", scope: :like do |form| %>
+            <%= form.submit "Like ", class: "post-like-btns"%>
+        <% end %>
+    </div>
+
+    <div class="post-comments">
         <% @comments.each do |comment|%>
             <h3><%= comment.author.name %><%= comment.text %></h3>
         <% end %>
     </div>
+    
+    <%= render partial: "add_comments", local: { post: @post } %>
 </div>
