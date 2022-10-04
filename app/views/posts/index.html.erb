@@ -20,7 +20,7 @@
             <% end %>
 
             <div class="post-comments">
-                <% post.five_recent_comments.each do |comment|%>
+                <% post.comments.includes(:author).order(updated_at: :desc).last(5).each do |comment|%>
                     <h3><%= comment.author.name %><%= comment.text %></h3>
                 <% end %>
             </div>
