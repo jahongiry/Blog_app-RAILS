@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe 'users#index', type: :feature do
   describe 'user index page' do
     before(:each) do
-
       visit root_path
     end
 
@@ -13,7 +12,7 @@ RSpec.describe 'users#index', type: :feature do
     end
 
     it 'shows the number of posts each user has written' do
-      expect(page).to have_content("1")
+      expect(page).to have_content('1')
     end
   end
 end

@@ -32,7 +32,7 @@ RSpec.describe 'posts#index', type: :feature do
     it 'shows number of posts of user has written' do
       post = Post.all
       expect(post.size).to eql(4)
-    end 
+    end
 
     it 'shows posts title' do
       expect(page).to have_content('First Post')
