@@ -34,11 +34,6 @@ RSpec.describe 'posts#index', type: :feature do
       expect(post.size).to eql(4)
     end
 
-    # it 'shows number of posts by user' do
-    #   user = User.first
-    #   expect(page).to have_content(user.posts_counter)
-    # end
-
     it 'shows posts title' do
       expect(page).to have_content('First Post')
     end
