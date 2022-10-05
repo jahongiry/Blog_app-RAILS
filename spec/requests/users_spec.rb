@@ -13,10 +13,6 @@ RSpec.describe 'UsersController', type: :request do
     it 'should render a template' do
       expect(response).to render_template(:index)
     end
-
-    it 'should test placeholder text inside template' do
-      expect(response.body).to include('Users List')
-    end
   end
 
   context 'GET show' do
@@ -28,10 +24,6 @@ RSpec.describe 'UsersController', type: :request do
 
     it 'should render a template' do
       expect(response).to render_template(:show)
-    end
-
-    it 'should test placeholder text inside template' do
-      expect(response.body).to include('User details by ID')
     end
   end
 end
