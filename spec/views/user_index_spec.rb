@@ -22,7 +22,7 @@ RSpec.describe 'users#index', type: :feature do
     end
 
     it 'shows the number of posts each user has written' do
-      expect(page).to have_content('1')
+      expect(page).to have_content("Posts: 0")
     end
   end
 end
