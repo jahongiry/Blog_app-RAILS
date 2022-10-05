@@ -34,12 +34,21 @@ RSpec.describe 'posts#index', type: :feature do
       expect(post.size).to eql(4)
     end
 
+    # it 'shows number of posts by user' do
+    #   user = User.first
+    #   expect(page).to have_content(user.posts_counter)
+    # end
+
     it 'shows posts title' do
       expect(page).to have_content('First Post')
     end
 
     it 'can see some of the post detail' do
       expect(page).to have_content 'This is my first post'
+    end
+
+    it 'can see the first comment on a post' do
+      expect(@comment1.text).to eql('Good job!')
     end
 
     it 'can see how many comments a post has.' do
@@ -50,6 +59,10 @@ RSpec.describe 'posts#index', type: :feature do
     it 'can see how many likes a post has.' do
       post = Post.first
       expect(page).to have_content(post.likes_counter)
+    end
+
+    it 'shows a section for pagination if there are more posts than fit on the view' do
+      expect(page).to have_content 'Pagination'
     end
 
     it "redirects the user to the post's show page after clickin on it" do
