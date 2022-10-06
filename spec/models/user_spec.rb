@@ -1,30 +1,37 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.describe User, type: :model do
-#   subject { User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.') }
+RSpec.describe User, type: :model do
+  describe 'Tests for User model validation ' do
+    subject { User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.') }
 
-#   before { subject.save }
+    before { subject.save }
 
-#   it 'Name should be present' do
-#     subject.name = nil
-#     expect(subject).to_not be_valid
-#   end
+    it 'name should be present' do
+      subject.name = nil
+      expect(subject).to_not be_valid
+    end
 
-#   it 'Posts Counter attribute should be an integer' do
-#     subject.posts_counter = 'string'
-#     expect(subject).to_not be_valid
-#   end
+    it 'name should not be blank' do
+      subject.name = ''
+      expect(subject).to_not be_valid
+    end
 
-#   it 'Posts Counter attribute should be greater or equal to zero' do
-#     subject.posts_counter = -100
-#     expect(subject).to_not be_valid
-#   end
+    it 'posts counter should be greater than or equal than 0' do
+      subject.posts_counter = -5
+      expect(subject).to_not be_valid
+    end
 
-#   describe '#three_recent_posts' do
-#     before { 6.times { Post.create(author: subject, title: 'Hello', text: 'This is my first post') } }
+    it 'posts counter should be an integer' do
+      subject.posts_counter = 5.8
+      expect(subject).to_not be_valid
+    end
+  end
 
-#     it 'three_recent_posts should return 3 posts' do
-#       expect(subject.three_recent_posts.size).to eql(subject.posts.last(3).size)
-#     end
-#   end
-# end
+  describe 'Tests for User model methods' do
+    before { 10.times { Post.create(author: subject, title: 'Hello', text: 'This is my first post') } }
+
+    it 'recent three posts should return 3 posts' do
+      expect(subject.recent_three_posts).to eql(subject.posts.last(3))
+    end
+  end
+end

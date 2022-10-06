@@ -1,34 +1,30 @@
-<div class="posts-container">
+<h2 class="descriptive-title">Here is a list of posts for a given user<h2>
 
-    <div class="user-box">
-        <img class="user-img" src=<%= @user.photo %> alt="user"/>
-        <div class="user-info-box">
-            <h2 class="user-name"><%= @user.name %></h2>
-            <p class="user-post-count">Number of posts: <%= @user.posts_counter%></p>
-        </div>
-    </div>
+<%= render "users/user_card" %>
+<% @posts.each do |post| %>
+    <div class="post-card">
+    <br>
+<%= link_to  post.title, user_post_path(@user, post)  %>
 
-    <% @posts.each do |post| %>
-        <div>
-            <%= link_to user_post_path(@user.id, post.id), class:"text-dec" do %> 
-                
-                <div class="posts-info">
-                    <h2 class="user-post-title">Post : <%= post.title %></h2>
-                    <p class="user-post-text"><%= post.text %></p>
-                    <h3 class="user-post-counters">Comments: <%= post.comments_conter%>, Likes: <%= post.likes_counter %><h3>
-                </div>
-            <% end %>
-
-            <div class="post-comments">
-                <% post.comments.includes(:author).order(updated_at: :desc).last(5).each do |comment|%>
-                    <h3><%= comment.author.name %><%= comment.text %></h3>
-                <% end %>
-            </div>
-        </div>
-    <% end%>
-
-    <button class="button">
-        Pagination
-    </button>
-  
+<br>
+<p><%= post.text %></p>
+<span class="counter-card">
+<span>Comments: </span><%= post.comments_counter %>
+<span>, Likes: </span><%= post.likes_counter %>
+</span>
+<br>
 </div>
+<div class="comment-card">
+ <% post.comments.includes(:author).order(updated_at: :desc).last(5).each do |comment| %>
+    
+    <span><%= comment.author.name %></span>
+
+    <span><%= comment.text%></span>
+    <br>
+    
+    <% end %>
+    </div>
+    <% end %>
+    <%= link_to  "Create new Post", new_user_post_path(@user)  %>
+
+    <button>Pagination</button>
