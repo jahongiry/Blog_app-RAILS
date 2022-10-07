@@ -14,13 +14,16 @@
     <span><%= comment.author.name %>:</span>
     <span><%= comment.text%></span>
     <br>
+    <% if can? :destroy, comment%>
+    <%= button_to 'delete', user_post_comment_path(post_id: @post.id ,id: comment.id), :method => :delete, data: { confirm: 'Are you sure?' } %>
+    <%end%>
+    
 <% end %>
-
 </div>
-
-
 <div class="like-div">
 <button><%= link_to  "Create new Comment", new_user_post_comment_path(@post.author, @post)  %></button>
 <%= render partial: 'likes/form' %>
-
+<%if can? :destroy, @post %>
+<%=button_to 'Delete post', user_post_path(post_id: @post.id), :method => :delete, data: { confirm: 'Are you sure?' } %>
+<%end%>
 </div>
