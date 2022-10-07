@@ -1,14 +1,15 @@
-<div class="users-container">
-    <h1 class="users-heading">Users Count <%= @users.length%></h1>
-    <% @users.each do |user| %>
-        <%= link_to user_path(user.id), class:"text-dec" do %>
-        <div class="user-box">
-            <img class="user-img" src=<%= user.photo %> alt=<%= user.name %>/>
-            <div class="user-info-box">
-                <h2 class="user-name"><%= user.name %></h2>
-                <p class="user-post-count">Total Posts: <%= user.posts_counter%></p>
-            </div>
-        </div>
-        <% end%>
-    <% end %>
+<h1 class="descriptive-title">Here is the list of users</h1>
+ <% @users.each do |user| %>
+    <div class= "user-card">
+    
+    <%= image_tag(user.photo, :size => "260x180") %>
+<div class= "user-info">
+
+    <%= link_to  user.name, user_path(user.id)  %>
+
+    <span class="counter-card">Number of posts: <%= user.posts_counter %></span>
 </div>
+</div>
+
+<br>
+     <% end %>

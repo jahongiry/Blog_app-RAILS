@@ -1,45 +1,39 @@
 class PostsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    @posts = @user.posts.includes(:comments)
+    @posts = @user.posts
   end
 
   def show
     @post = Post.find(params[:id])
-    @user = @post.author
-    @comments = @post.comments
   end
 
   def new
     @post = Post.new
-  end
-
-  def create
-    @new_post = current_user.posts.new(post_params)
     respond_to do |format|
-      format.html do
-        if @new_post.save
-          redirect_to "/users/#{@new_post.author.id}/posts/", flash: { alert: 'Your post is saved' }
-        else
-          redirect_to "/users/#{@new_post.author.id}/posts/new", flash: { alert: 'Could not save post' }
-        end
-      end
+      format.html { render :new, locals: { post: @post } }
     end
   end
 
-  def destroy
-    @post = Post.find(params[:id])
-    user = User.find(params[:user_id])
-    user.posts_counter -= 1
-    @post.destroy!
-    user.save
-    flash[:success] = 'You have deleted this post!'
-    redirect_to user_posts_path(user.id)
+  def post_params
+    params
+      .require(:post)
+      .permit(:title, :text)
+      .merge(author: current_user, comments_counter: 0, likes_counter: 0)
   end
 
-  private
-
-  def post_params
-    params.require(:post).permit(:title, :text)
+  def create
+    @post = Post.new(post_params)
+    respond_to do |format|
+      format.html do
+        if @post.save
+          flash[:success] = 'Post saved successfully'
+          redirect_to user_post_path(current_user, @post)
+        else
+          flash.now[:error] = 'Error: Post could not be saved'
+          redirect_to new_user_post_path(current_user)
+        end
+      end
+    end
   end
 end
